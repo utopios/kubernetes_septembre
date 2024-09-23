@@ -46,3 +46,9 @@ Note: si vous utilisez une machine virtuelle intermédiaire pour accéder à vot
 
 Supprimez le Pod *wp*.
 
+
+
+####
+```bash
+kubectl port-forward wp 8080:80
+```
