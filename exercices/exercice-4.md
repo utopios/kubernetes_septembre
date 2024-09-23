@@ -24,7 +24,7 @@ Listez les ressources créées par la commande précédente (Deployment, Replica
 
 Mettez l'image nginx à jour avec le version *nginx:1.16-alpine*
 
-Note: spécifiez l'option *--record*  afin de conserver l'historique de la mise à jour
+Note: spécifiez l'option *--record*  afin de conserver l'historique de la mise à jour (deprecated)
 
 ### 5. Liste des ressources
 
@@ -45,3 +45,39 @@ Faites un rollback et vérifier que le Deployment est maintenant basé sur la ve
 ### 8. Cleanup
 
 Supprimez le Deployment *www*
+
+
+### Correction
+
+1. création du deployment
+```bash
+kubectl create deploy www --image nginx:1.16
+```
+
+2. Scale
+```bash
+kubectl scale deploy/www --replicas 3
+```
+
+3. liste des ressources
+```bash
+kubectl get deploy
+kubectl get rs
+kubectl get pods 
+```
+
+4. Mise à jour
+
+```bash
+kubectl set image deploy/www *=nginx:1.16-alpine
+```
+
+5. Rollout
+```bash
+kubectl rollout history deploy/www
+```
+
+6. Rollback
+```bash
+kubectl rollout undo deploy/www --to-revision=1
+```

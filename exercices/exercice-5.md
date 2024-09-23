@@ -47,3 +47,43 @@ Note: vous pouvez récupérer les IPs des machines de votre cluster avec la comm
 ### 5. Cleanup
 
 Supprimez le Deployment ainsi que le Service créés précédemment.
+
+
+## Correction
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ghost
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ghost
+  template:
+    metadata:
+      labels:
+        app: ghost
+    spec:
+      containers:
+      - name: ghost
+        image: ghost:4
+        ports:
+        - containerPort: 2368
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ghost
+spec:
+  selector:
+    app: ghost
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 2368
+    nodePort: 31001
+```
