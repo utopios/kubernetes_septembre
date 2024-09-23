@@ -4,6 +4,9 @@ metadata:
   name: nginx-deployment
 spec:
   replicas: 4
+  strategy:
+    #type: Recreate
+    type: RollingUpdate
   selector:
     matchLabels:
       app: nginx
@@ -14,6 +17,6 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:latest
+        image: nginx:stable-alpine-perl
         ports:
           - containerPort: 80
