@@ -6,5 +6,5 @@ spec:
   containers:
   - name: debug
     image: alpine:3.15
-    command: [ "/bin/sh", "-c", "apk add --no-cache curl && sleep 10000" ]
-    
+    #command: [ "sleep", "3600" ]
+    args: [ "/bin/sh", "-c", "apk add --no-cache curl && sleep 3600" ]
