@@ -79,5 +79,8 @@ Comme on peut le voir, la spécification définie un volume qui est utilisé pou
 - Créez le pod proxy à partir de la config et l'image nginx:1.20-alpine
 - Créez un service pour ce proxy
 
+Le path sur l'image nginx pour la conf est /etc/nginx/
+
+curl localhost:31600/whoami
 
 
