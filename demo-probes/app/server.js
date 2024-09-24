@@ -13,7 +13,7 @@ app.use(express.json());
 setTimeout(() => {
     isDatabaseConnected = true;
     console.log("Connected to the database.");
-}, 10000); // Simuler un délai de connexion de 10 secondes.
+}, 100000); // Simuler un délai de connexion de 10 secondes.
 
 // Sondes
 app.get('/healthz', (req, res) => {
@@ -29,11 +29,12 @@ app.get('/readiness', (req, res) => {
 });
 
 app.get('/startup', (req, res) => {
-    if (isDatabaseConnected) {
-        res.status(200).json({ status: 'ok', message: 'Startup Probe' });
-    } else {
-        res.status(500).json({ status: 'error', message: 'Startup not complete' });
-    }
+    // if (isDatabaseConnected) {
+    //     res.status(200).json({ status: 'ok', message: 'Startup Probe' });
+    // } else {
+    //     res.status(500).json({ status: 'error', message: 'Startup not complete' });
+    // }
+    res.status(200).json({ status: 'ok', message: 'Startup Probe' });
 });
 
 // Routes de gestion des utilisateurs
