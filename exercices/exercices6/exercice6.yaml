@@ -43,7 +43,7 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: myjob
+  name: mongo-dump
 spec:
   schedule: "0 0 * * *"
   jobTemplate:
@@ -60,23 +60,27 @@ spec:
                 memory: "256Mi"
           restartPolicy: Never
 
+---
 
-# apiVersion: batch/v1
-# kind: Job
-# metadata:
-#   name: mongo-dump
-# spec:
-#   template:
-#     spec:
-#       containers:
-#       - name: mongodump
-#         image: mongo:4.0
-#         command: ["sh", "-c", "mongodump", "--gzip", "--host", "db", "--archive=/tmp/db.gz"]
-#         resources:
-#           limits:
-#             cpu: "200m"
-#             memory: "256Mi"
-#       restartPolicy: Never
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mongo-dump
+spec:
+  template:
+    spec:
+      containers:
+      - name: mongodump
+        image: mongo:4.0
+        command:
+        - sh
+        - -c
+        - mongodump --gzip --host db --archive=/dump/db.gz
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+      restartPolicy: Never
 
 
 ---
