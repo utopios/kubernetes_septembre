@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-privileged
+  namespace: restricted-ns
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    securityContext:
+      privileged: true  # Active les privilèges élevés

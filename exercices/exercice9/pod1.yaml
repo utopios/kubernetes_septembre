@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-run-as-root
+  namespace: restricted-ns
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    securityContext:
+      runAsUser: 0  # Exécute le conteneur en tant qu'utilisateur root
