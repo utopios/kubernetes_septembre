@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-mon-app
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-mon-app
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-mon-app
+    spec:
+      containers:
+        - name: mon-app
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          {{- with .Values.ports }}
+          ports:
+          {{ toYaml . | nindent 8 }}
+          {{- end }}
+        
