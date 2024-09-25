@@ -105,3 +105,20 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+
+deployments:
+  - name: app1
+    replicaCount: 2
+    image:
+      repository: nginx
+      tag: "1.21.0"
+    service:
+      port: 8080
+  - name: app2
+    replicaCount: 3
+    image:
+      repository: nginx
+      tag: "1.22.0"
+    service:
+      port: 9090

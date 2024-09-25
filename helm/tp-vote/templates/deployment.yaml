@@ -1,22 +1,60 @@
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: {{ .Release.Name }}-mon-app
+# spec:
+#   replicas: {{ .Values.replicaCount }}
+#   selector:
+#     matchLabels:
+#       app: {{ .Release.Name }}-mon-app
+#   template:
+#     metadata:
+#       labels:
+#         app: {{ .Release.Name }}-mon-app
+#     spec:
+#       containers:
+#         - name: mon-app
+#           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+#           {{- with .Values.ports }}
+#           ports:
+#           {{ toYaml . | nindent 8 }}
+#           {{- end }}
+
+{{- range .Values.deployments }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-mon-app
+  name: {{ .name }}
+  labels:
+    app: {{ .name }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Release.Name }}-mon-app
+      app: {{ .name }}
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}-mon-app
+        app: {{ .name }}
     spec:
       containers:
-        - name: mon-app
-          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-          {{- with .Values.ports }}
+        - name: {{ .name }}
+          image: {{ .image.repository }}:{{ .image.tag }}
           ports:
-          {{ toYaml . | nindent 8 }}
-          {{- end }}
-        
+            - containerPort: {{ .service.port }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .name }}-service
+spec:
+  selector:
+    app: {{ .name }}
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: {{ .service.port }}
+      name: http
+  type: ClusterIP
+---
+{{- end }}
