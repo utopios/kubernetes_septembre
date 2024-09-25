@@ -12,4 +12,4 @@ curl http://nginx-service.client1.svc.cluster.local
 ```
 
 ### Commande pour ajouter un label à une ressource namespace
-kubectl label namespace client1 name=client1 --overwrite
+kubectl label namespace client1 allow-ingress=true --overwrite
