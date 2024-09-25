@@ -1,0 +1,57 @@
+{{- range $i, $deployment := .Values.deployments }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $deployment.name }}
+  namespace: {{ $.Values.namespace }}
+  labels:
+    app: {{ $deployment.name }}
+    {{- range $key, $value := $deployment.labels }}
+    {{ $key }}: {{ $value }}
+    {{- end }}
+spec:
+  replicas: {{ $deployment.replicas }}
+  selector:
+    matchLabels:
+      app: {{ $deployment.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ $deployment.name }}
+        {{- range $key, $value := $deployment.labels }}
+        {{ $key }}: {{ $value }}
+        {{- end }}
+    spec:
+      containers:
+        - name: {{ $deployment.name }}
+          image: {{ $deployment.image }}
+          ports:
+            - containerPort: {{ $deployment.port }}
+          resources:
+            limits:
+              cpu: "{{ $deployment.cpu }}"
+              memory: "{{ $deployment.memory }}"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $deployment.serviceName }}
+  namespace: {{ $.Values.namespace }}
+  labels:
+    app: {{ $deployment.name }}
+    {{- range $key, $value := $deployment.labels }}
+    {{ $key }}: {{ $value }}
+    {{- end }}
+spec:
+  type: {{ $deployment.serviceType }}
+  selector:
+    app: {{ $deployment.name }}
+  ports:
+    - port: {{ $deployment.servicePort }}
+      targetPort: {{ $deployment.port }}
+      protocol: TCP
+      {{- if eq $deployment.serviceType "NodePort" }}
+      nodePort: {{ $deployment.nodePort }}
+      {{- end }}
+---
+{{- end }}
