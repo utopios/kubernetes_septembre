@@ -2,5 +2,8 @@ dependencies:
 - name: correction-tp-vote
   repository: file://../correction-tp-vote
   version: 0.1.0
-digest: sha256:ce4317b76326d5546856db823081af4218bb61319ac25c72b675a1d1e7f8984c
-generated: "2024-09-25T15:28:22.684228+02:00"
+- name: elasticsearch
+  repository: https://helm.elastic.co
+  version: 8.5.1
+digest: sha256:e6a1ab350c4ca368365dcd481965a7614c1732777df1fdb02c2c7c9b944fba96
+generated: "2024-09-25T15:52:52.954074+02:00"

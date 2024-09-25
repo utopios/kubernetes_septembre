@@ -26,3 +26,7 @@ dependencies:
   - name: correction-tp-vote
     version: 0.1.0
     repository: "file://../correction-tp-vote"
+  
+  - name: elasticsearch
+    version: 8.5.1
+    repository: https://helm.elastic.co
