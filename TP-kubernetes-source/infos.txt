@@ -21,3 +21,4 @@ Etapes:
  - On souhaite partager les variables d'env du deploiement postgres par des ConfigMaps et des secrets.
 
 
+/var/lib/postgresql/data
