@@ -10,3 +10,6 @@ kubectl create ns client2
 ```bash
 curl http://nginx-service.client1.svc.cluster.local
 ```
+
+### Commande pour ajouter un label à une ressource namespace
+kubectl label namespace client1 name=client1 --overwrite
