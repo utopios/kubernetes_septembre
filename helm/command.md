@@ -9,3 +9,8 @@ helm create tp-vote
 ```bash
 helm install <nom_release> <chemin_chart>
 ```
+
+3. Passer les valeurs de variables en ligne de commande
+```bash
+helm install <nom_relase> <chemin_chart> --set image.repository="apache2"
+```
