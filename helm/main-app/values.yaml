@@ -1,0 +1,50 @@
+correction-tp-vote:
+  namespace: tp-kubernetes-2
+  deployments:
+    - name: tp-vote
+      replicas: 2
+      image: tp-vote
+      port: 80
+      cpu: "100m"
+      memory: "128Mi"
+      serviceName: vote-service
+      serviceType: NodePort
+      servicePort: 80
+      nodePort: 30005
+      labels: {}
+      
+
+    - name: tp-result
+      replicas: 2
+      image: tp-result
+      port: 4000
+      cpu: "100m"
+      memory: "128Mi"
+      serviceName: result-service
+      serviceType: NodePort
+      servicePort: 4000
+      nodePort: 30006
+      labels: {}
+        
+
+    - name: tp-redis
+      replicas: 1
+      image: redis:5.0-alpine3.10
+      port: 6379
+      cpu: "100m"
+      memory: "128Mi"
+      serviceName: redis-service
+      serviceType: ClusterIP
+      servicePort: 6379
+      labels: {}
+
+    - name: tp-postgres
+      replicas: 1
+      image: postgres:9.4
+      port: 5432
+      cpu: "100m"
+      memory: "128Mi"
+      serviceName: postgres-service
+      serviceType: ClusterIP
+      servicePort: 5432
+      labels: {}

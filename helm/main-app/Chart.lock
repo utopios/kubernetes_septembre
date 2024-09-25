@@ -1,0 +1,6 @@
+dependencies:
+- name: correction-tp-vote
+  repository: file://../correction-tp-vote
+  version: 0.1.0
+digest: sha256:ce4317b76326d5546856db823081af4218bb61319ac25c72b675a1d1e7f8984c
+generated: "2024-09-25T15:28:22.684228+02:00"
